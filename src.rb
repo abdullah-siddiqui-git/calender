@@ -3,7 +3,9 @@ require_relative "event"
 require "date"
 
 =begin
-  -------------- Methods --------------
+  ------------------------------------------
+                METHODS
+  ------------------------------------------ 
 =end
 
 def add_event( calender )
@@ -151,7 +153,9 @@ end
 
 
 =begin
-  -------------- Script starts from here --------------
+  ------------------------------------------
+           SCRIPT STARTS FROM HERE
+  ------------------------------------------ 
 =end
 calender = Calender.new
 
