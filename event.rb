@@ -20,15 +20,7 @@ class Event
 
 
 
-  def edit!
-    # Input events new name
-    puts "Please enter a new name for this event: "
-    new_name = gets.chomp
-
-    # Input events new description
-    puts "Please enter new description for this event: "
-    new_description = gets.chomp
-
+  def edit!( new_name, new_description )
     # Change the object
     @name = new_name
     @description = new_description

@@ -37,7 +37,7 @@ class Calender
   end
 
 
-  def edit_event!( date, event_num )
+  def edit_event!( date, event_num, new_name, new_description )
     # Convert date elements into string in order to use them as keys
     year, month, day = date.year.to_s, date.month.to_s, date.day.to_s
 
@@ -50,7 +50,7 @@ class Calender
     end
 
     # Edit this event
-    event.edit!
+    event.edit!( new_name, new_description )
 
     puts "Editing done!"
   end

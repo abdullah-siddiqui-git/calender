@@ -57,8 +57,16 @@ def edit_event( calender )
     # Get index of event from the user
     index_of_event = get_index_of_event list_of_events
 
+    # Get new name
+    print "Please enter a new name for this event: "
+    new_name = gets.chomp
+
+    # Get new description
+    print "Please enter a new description for this event: "
+    new_description = gets.chomp
+
     # Edit event
-    calender.edit_event! date, index_of_event
+    calender.edit_event! date, index_of_event, new_name, new_description
 
     puts "Successfully edited the event!"
   else
