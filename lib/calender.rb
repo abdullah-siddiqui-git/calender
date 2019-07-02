@@ -6,10 +6,6 @@ class Calender
     @events = {}
   end
 
-  def print_whole_calender
-    puts @events
-  end
-
   def register_event!( date, event )
     # Convert date elements into string in order to use them as keys
     year, month, day = date.year.to_s, date.month.to_s, date.day.to_s
