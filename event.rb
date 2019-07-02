@@ -11,34 +11,40 @@ class Event
     @@id += 1
   end
 
+
+
   def print_detail
     puts "Name: #{@name}"
     puts "Description: #{@description}"
   end
 
+
+
   def edit!
     # Input events new name
     puts "Please enter a new name for this event: "
-    new_name = gets
+    new_name = gets.chomp
 
     # Input events new description
     puts "Please enter new description for this event: "
-    new_description = gets
+    new_description = gets.chomp
 
     # Change the object
     @name = new_name
     @description = new_description
   end
 
+
+
   def self.events_factory
 
     # Input event name
     puts "Please enter a valid name for the event: "
-    event_name = gets
+    event_name = gets.chomp
 
     # Input event description
     puts "Please enter a valid description for the event: "
-    event_description = gets
+    event_description = gets.chomp
 
     # Create and return new event object.
     Event.new( event_name, event_description )
