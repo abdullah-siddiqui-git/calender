@@ -1,4 +1,5 @@
 require "date"
+require_relative "invalid-date-error"
 
 class Calender
 
@@ -112,9 +113,9 @@ class Calender
     begin
       start_of_month = Date.new( year, month, 1 )
     rescue ArgumentError => wrong_date_error
-      puts "Wrong month and year given in arguments..." 
-      return 
+      raise InvalidDateError.new, "Wrong month and year given in arguments..." 
     end
+    
     year, month = start_of_month.year.to_s, start_of_month.month.to_s
 
     # Start Print Month
@@ -153,8 +154,7 @@ class Calender
       start_of_month = Date.new( year, month, 1 )
       last_day_of_month = Date.new( year, month, -1 )
     rescue ArgumentError => wrong_date_error
-      puts "Wrong month and year given in arguments..." 
-      return 
+      raise InvalidDateError.new, "Wrong month and year given in arguments..." 
     end
 
 

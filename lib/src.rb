@@ -102,7 +102,7 @@ end
 
 def print_calender_view_of_month( calender )
   # Get month number
-  print "\nPlease enter month number: (1 - 12)"
+  print "\nPlease enter month number: (1 - 12) "
   month_num = gets.to_i
 
   # Get Year
@@ -110,7 +110,11 @@ def print_calender_view_of_month( calender )
   year = gets.to_i
 
   # print
-  calender.print_in_calender_view month_num, year 
+  begin 
+    calender.print_in_calender_view month_num, year 
+  rescue InvalidDateError => error
+    puts error
+  end
 end 
 
 
@@ -125,7 +129,7 @@ end
 
 def print_details_of_events_in_month( calender )
   # Get month number
-  print "\nPlease enter month number: (1 - 12)"
+  print "\nPlease enter month number: (1 - 12) "
   month_num = gets.to_i
 
   # Get Year
@@ -133,7 +137,11 @@ def print_details_of_events_in_month( calender )
   year = gets.to_i
 
   # print
-  calender.print_events_in_month month_num, year
+  begin
+    calender.print_events_in_month month_num, year
+  rescue InvalidDateError => error
+    puts error
+  end
 end
 
 

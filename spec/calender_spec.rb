@@ -1,5 +1,6 @@
 require './lib/calender'
 require './lib/event'
+require './lib/invalid-date-error'
 
 describe Calender do 
   let( :calender ) { Calender.new }
@@ -31,7 +32,7 @@ describe Calender do
     expect( calender.get_list_of_events( date )[ -1 ].name ).to eq( "Event 1 - changed" )
   end
 
-  it "Check if deletion works properly" do
+  it "Checks if deletion works properly" do
     # Add a new event and check if changes
     event = Event.new( "Event 1", "Event 1 description." )
     date  = Date.new( 2019, 7, 2 )
@@ -46,5 +47,13 @@ describe Calender do
     # Check if the event object is still present in the list of events.
     result = calender.get_list_of_events( date ).select { |event_loop| event_loop.object_id == event.object_id }
     expect( result.length ).to eq( 0 )
+  end
+
+  it "Checks if print in calender view function handles invalid date exceptions" do
+    expect( calender.print_in_calender_view( 13, 2019 ) ).to raise_error( InvalidDateError )
+  end
+
+  it "Checks if print events in a month function handles invalid date exceptions" do
+    expect( calender.print_events_in_month( 13, 2019 ) ).to raise_error( InvalidDateError )
   end
 end
