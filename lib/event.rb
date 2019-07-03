@@ -25,20 +25,4 @@ class Event
     @name = new_name
     @description = new_description
   end
-
-
-
-  def self.events_factory
-    # Input event name
-    puts "Please enter a valid name for the event: "
-    event_name = gets.chomp
-
-    # Input event description
-    puts "Please enter a valid description for the event: "
-    event_description = gets.chomp
-
-    # Create and return new event object.
-    Event.new( event_name, event_description )
-  end
-
 end

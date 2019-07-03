@@ -4,19 +4,20 @@ require "date"
 
 =begin
   ------------------------------------------
-                METHODS
+                HELPER METHODS
   ------------------------------------------ 
 =end
 
-def add_event( calender )
-  # Add event
-  date = get_valid_date_from_user
-  event = Event.events_factory
+def input_event_attributes
+  # Input event name
+    puts "Please enter a valid name for the event: "
+    event_name = gets.chomp
 
-  # Register event
-  calender.register_event! date, event
+    # Input event description
+    puts "Please enter a valid description for the event: "
+    event_description = gets.chomp
 
-  puts "Successfully created event on #{date.strftime("%B %d, %Y - %A")}"
+    return event_name, event_description
 end
 
 
@@ -25,6 +26,7 @@ def print_list_of_events( list_of_events )
     puts "#{index + 1} => #{event.name} - #{event.description}"
   end
 end
+
 
 def get_index_of_event( list_of_events )
   begin
@@ -43,6 +45,48 @@ def get_index_of_event( list_of_events )
   end while correct_selection == false
 end
 
+def get_valid_date_from_user  
+  begin
+    correct_date_entered = true
+    # Get input
+    print "\nGet date in format \" dd-mm-yyyy \" "
+    date_string = gets.chomp
+
+    # Parse date
+    begin
+      date = Date.parse( date_string, "%d-%m-%Y" )
+      return date # Return date
+    rescue ArgumentError => date_parse_error
+      puts %Q(Please enter a valid date. 
+      Following could be the causes of errors:
+        - Wrong format
+        - Date doesn't exist
+      )
+      correct_date_entered = false
+    end
+  end while correct_date_entered == false
+end
+
+
+=begin
+  ------------------------------------------
+        METHODS IMPLEMENTING USE CASES
+  ------------------------------------------ 
+=end
+
+def add_event( calender )
+  # Add event
+  date = get_valid_date_from_user
+  event_name, event_description = input_event_attributes
+  event = Event.new( event_name, event_description )
+
+  # Register event
+  calender.register_event! date, event
+
+  puts "Successfully created event on #{date.strftime("%B %d, %Y - %A")}"
+end
+
+
 def edit_event( calender )
   # Get dates
   date = get_valid_date_from_user
@@ -57,13 +101,8 @@ def edit_event( calender )
     # Get index of event from the user
     index_of_event = get_index_of_event list_of_events
 
-    # Get new name
-    print "Please enter a new name for this event: "
-    new_name = gets.chomp
-
-    # Get new description
-    print "Please enter a new description for this event: "
-    new_description = gets.chomp
+    # Get new name and new description
+    new_name, new_description = input_event_attributes
 
     # Edit event
     calender.edit_event! date, index_of_event, new_name, new_description
@@ -73,8 +112,6 @@ def edit_event( calender )
     puts "No events are present on this date."
   end
 end
-
- 
 
 
 def delete_event( calender )
@@ -99,6 +136,7 @@ def delete_event( calender )
     puts "No events are present on this date."
   end
 end
+
 
 def print_calender_view_of_month( calender )
   # Get month number
@@ -145,34 +183,12 @@ def print_details_of_events_in_month( calender )
 end
 
 
-def get_valid_date_from_user  
-  begin
-    correct_date_entered = true
-    # Get input
-    print "\nGet date in format \" dd-mm-yyyy \" "
-    date_string = gets.chomp
-
-    # Parse date
-    begin
-      date = Date.parse( date_string, "%d-%m-%Y" )
-      return date # Return date
-    rescue ArgumentError => date_parse_error
-      puts %Q(Please enter a valid date. 
-      Following could be the causes of errors:
-        - Wrong format
-        - Date doesn't exist
-      )
-      correct_date_entered = false
-    end
-  end while correct_date_entered == false
-end
-
-
 =begin
   ------------------------------------------
            SCRIPT STARTS FROM HERE
   ------------------------------------------ 
 =end
+
 calender = Calender.new
 
 MENU_ITEMS = 6
@@ -230,7 +246,6 @@ loop do
     end
     
   end while correct_selection == false 
-
 
 
   print "\nPress enter to print menu again..."
