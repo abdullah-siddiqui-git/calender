@@ -29,7 +29,6 @@ class Event
 
 
   def self.events_factory
-
     # Input event name
     puts "Please enter a valid name for the event: "
     event_name = gets.chomp
@@ -40,7 +39,6 @@ class Event
 
     # Create and return new event object.
     Event.new( event_name, event_description )
-
   end
 
 end

@@ -28,7 +28,6 @@ class Calender
      # Now append event object to the end of the array we just created, if
      # already not, being pointed by the date in @events hash.
 
-     
      @events[ year ][ month ][ day ].push event
   end
 
@@ -193,6 +192,7 @@ class Calender
       current_date_of_month = current_date_of_month.next
     end
 
+    # Print new line
     puts ""
   end
 
