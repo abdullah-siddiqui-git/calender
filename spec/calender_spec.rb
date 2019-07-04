@@ -16,7 +16,7 @@ describe Calender do
     expect(calender.get_list_of_events(date)[-1]).to equal(event)
   end
 
-  it 'Edit the registered event' do 
+  it 'Edit the registered event' do
     # Add a new event and check if changes
     event = Event.new('Event 1', 'Event 1 description.')
     date  = Date.new(2019, 7, 2)

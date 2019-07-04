@@ -6,7 +6,7 @@ require 'date'
 #               HELPER METHODS
 # ------------------------------------------
 
-def input_event_attributes
+def input_event_attributes_from_user
   # Input event name
   puts 'Please enter a valid name for the event: '
   event_name = gets.chomp
@@ -24,7 +24,7 @@ def print_list_of_events(list_of_events)
   end
 end
 
-def get_index_of_event(list_of_events)
+def input_index_of_event_from_user(list_of_events)
   loop do
     correct_selection = true
 
@@ -44,7 +44,7 @@ def get_index_of_event(list_of_events)
   end
 end
 
-def get_valid_date_from_user
+def input_valid_date_from_user
   loop do
     correct_date_entered = true
     # Get input
@@ -74,8 +74,8 @@ end
 
 def add_event(calender)
   # Add event
-  date = get_valid_date_from_user
-  event_name, event_description = input_event_attributes
+  date = input_valid_date_from_user
+  event_name, event_description = input_event_attributes_from_user
   event = Event.new(event_name, event_description)
 
   # Register event
@@ -86,7 +86,7 @@ end
 
 def edit_event(calender)
   # Get dates
-  date = get_valid_date_from_user
+  date = input_valid_date_from_user
 
   # Get list of events on a date
   list_of_events = calender.get_list_of_events date
@@ -96,10 +96,10 @@ def edit_event(calender)
     print_list_of_events list_of_events
 
     # Get index of event from the user
-    index_of_event = get_index_of_event list_of_events
+    index_of_event = input_index_of_event_from_user list_of_events
 
     # Get new name and new description
-    new_name, new_description = input_event_attributes
+    new_name, new_description = input_event_attributes_from_user
 
     # Edit event
     calender.edit_event! date, index_of_event, new_name, new_description
@@ -112,7 +112,7 @@ end
 
 def delete_event(calender)
   # Get date
-  date = get_valid_date_from_user
+  date = input_valid_date_from_user
 
   # Get list of events on a date
   list_of_events = calender.get_list_of_events date
@@ -122,7 +122,7 @@ def delete_event(calender)
     print_list_of_events list_of_events
 
     # Get index of event from the user
-    index_of_event = get_index_of_event list_of_events
+    index_of_event = input_index_of_event_from_user list_of_events
 
     # Delete event
     calender.delete_event! date, index_of_event
@@ -152,7 +152,7 @@ end
 
 def print_details_of_events_on_date(calender)
   # Get date
-  date = get_valid_date_from_user
+  date = input_valid_date_from_user
 
   # print
   calender.print_events_on_date date
@@ -228,7 +228,7 @@ loop do
 
     when 6
       # Print details of events in a specified month
-      print_details_of_events_in_month calender 
+      print_details_of_events_in_month calender
 
     else
       puts "Your selection doesn't match any menu item number. Please try again."
