@@ -29,18 +29,11 @@ class Calender
     # Convert date elements into string in order to use them as keys
     year, month, day = date.year.to_s, date.month.to_s, date.day.to_s
 
-    # Get Event object
-    begin
-      event = @events.fetch(year).fetch(month).fetch(day)[event_num]
-    rescue KeyError
-      puts 'The event you are trying to access does not exist.'
-      return
-    end
+    # Get Event object - It generates key error if event is not found.
+    event = @events.fetch(year).fetch(month).fetch(day)[event_num]
 
     # Edit this event
     event.edit!(new_name, new_description)
-
-    puts 'Editing done!'
   end
 
   def delete_event!(date, event_num)
@@ -48,12 +41,8 @@ class Calender
     year, month, day = date.year.to_s, date.month.to_s, date.day.to_s
 
     # Delete event object if it exists.
-    begin
-      @events.fetch(year).fetch(month).fetch(day).slice! event_num
-    rescue KeyError
-      puts "The event you are trying to access doesn't exist."
-      return
-    end
+    # It generates key error if event is not found.
+    @events.fetch(year).fetch(month).fetch(day).slice! event_num
 
     # Remove the allocated memory from calender hash if no events are present in
     # hash location pointed by the date of event
@@ -69,8 +58,6 @@ class Calender
     # Check if there is no other event in the specified year
     # Delete if current year has no other event
     @events.delete year if @events[year].size.zero?
-
-    puts 'Deletion done!'
   end
 
   def print_events_on_date(date)

@@ -48,7 +48,7 @@ def input_valid_date_from_user
   loop do
     correct_date_entered = true
     # Get input
-    print "\nGet date in format \" dd-mm-yyyy \" "
+    print "\nEnter date in format \" dd-mm-yyyy \" "
     date_string = gets.chomp
 
     # Parse date
@@ -102,9 +102,13 @@ def edit_event(calender)
     new_name, new_description = input_event_attributes_from_user
 
     # Edit event
-    calender.edit_event! date, index_of_event, new_name, new_description
-
-    puts 'Successfully edited the event!'
+    begin
+      calender.edit_event! date, index_of_event, new_name, new_description
+    rescue KeyError
+      puts 'The event you are trying to access does not exist'
+    else
+      puts 'Successfully edited the event!'
+    end
   else
     puts 'No events are present on this date.'
   end
@@ -125,9 +129,13 @@ def delete_event(calender)
     index_of_event = input_index_of_event_from_user list_of_events
 
     # Delete event
-    calender.delete_event! date, index_of_event
-
-    puts 'Successfully deleted the event!'
+    begin
+      calender.delete_event! date, index_of_event
+    rescue KeyError
+      puts 'The event you are trying to access does not exist'
+    else
+      puts 'Successfully deleted the event!'
+    end
   else
     puts 'No events are present on this date.'
   end
